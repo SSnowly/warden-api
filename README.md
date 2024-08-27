@@ -2,7 +2,7 @@
 I made this as a project so i can finnally access the data on a website, PLS WARDEN USE IT
 
 # How to setup:
-## Install depencies
+## Install dependencies
 ```
 npm install
 ```
