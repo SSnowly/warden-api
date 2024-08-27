@@ -22,8 +22,22 @@ app.get('/', async (req, res) => {
     const pageSize = 25; // you can change this, this just changes how much is shown, does not help the database requests :kekw: (i mean it does but count is allways got)
     
     try {
+        /** 
+         * @type {string}
+        */
         let dataType;
-        let data, count;
+        /**
+         * @type {string}
+         */
+        let data;
+        /**
+         * @type {number}
+         */
+        let count;
+
+        /**
+         * @type {number}
+         */
         const skip = (page - 1) * pageSize;
         if (isNaN(data)) {
             dataType == "name"
@@ -92,7 +106,9 @@ app.get('/', async (req, res) => {
                 take: pageSize
             });
         }
-
+        /**
+         * @type {number}
+         */
         const totalPages = Math.ceil(count / pageSize);
 
         res.render('index', { view, data, page, totalPages, search });
