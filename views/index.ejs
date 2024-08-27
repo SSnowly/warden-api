@@ -159,16 +159,14 @@
                 <% } else { %>
                     <li class="box">
                         <div class="info"><strong>USER ID</strong></div>
-                        <div class="info"><strong>USERNAME</strong></div>
-                        <div class="info"><strong>STATUS</strong></div>
                         <div class="info"><strong>REASON</strong></div>
+                        <div class="info"><strong>STATUS</strong></div>
                     </li>
                     <% data.forEach(user => { %>
                         <li class="box">
                             <div class="info"><%= user.id %></div>
-                            <div class="info"><%= user.last_username %></div>
                             <div class="info"><%= user.type %></div>
-                            <div class="info"><%= user.reason %></div>
+                            <div class="info"><%= user.status %></div>
                         </li>
                     <% }) %>
                 <% } %>

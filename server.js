@@ -75,41 +75,22 @@ app.get('/', async (req, res) => {
                 });
             }
         } else {
-            if(dataType === "name") {
-                count = await prisma.users.count({
-                    where: {
-                        last_username: {
-                            contains: search,
-                        }
+            count = await prisma.users.count({
+                where: {
+                    id: {
+                        contains: search,
                     }
-                });
-                data = await prisma.users.findMany({
-                    where: {
-                        last_username: {
-                            contains: search,
-                        }
-                    },
-                    skip,
-                    take: pageSize
-                });
-            } else {
-                count = await prisma.users.count({
-                    where: {
-                        id: {
-                            contains: search,
-                        }
+                }
+            });
+            data = await prisma.users.findMany({
+                where: {
+                    id: {
+                        contains: search,
                     }
-                });
-                data = await prisma.users.findMany({
-                    where: {
-                        id: {
-                            contains: search,
-                        }
-                    },
-                    skip,
-                    take: pageSize
-                });
-            }
+                },
+                skip,
+                take: pageSize
+            });
         }
 
         const totalPages = Math.ceil(count / pageSize);
