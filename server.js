@@ -109,7 +109,7 @@ app.get('/', async (req, res) => {
         /**
          * @type {number}
          */
-        const totalPages = Math.ceil(count / pageSize);
+        const totalPages = count / pageSize;
 
         res.render('index', { view, data, page, totalPages, search });
     } catch (error) {
