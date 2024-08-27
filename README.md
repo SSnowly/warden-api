@@ -4,7 +4,7 @@ I made this as a project so i can finnally access the data on a website, PLS WAR
 # How to setup:
 ## Install depencies
 ```
-npm install express @prisma/client body-parser path
+npm install
 ```
 ## Change .env with your database
 ```
