@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of <%= view === 'badservers' ? 'Bad Servers' : 'Users' %></title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        * {
+            font-family: 'Lexend', sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+        }
+
+        .header, .nav, .content, .pagination {
+            margin-bottom: 20px;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            background-color: #2a2a2a;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .nav a:hover {
+            background-color: #414141;
+        }
+
+        .box {
+            background-color: #2a2a2a;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            color: #fff;
+
+        }
+
+        .box strong {
+            color: #fff;
+        }
+        .box .info {
+            padding: 10px;
+            flex: 1;
+            text-align: left;
+        }
+        .search-bar {
+            display:flex;
+            gap: 20px;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 60%;
+        }
+        .search-bar input[type="text"]:focus {
+            border: none;
+        }
+        .search-bar button {
+            padding: 10px;
+            background-color: #2a2a2a;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #3a3a3a;
+        }
+
+        .pagination a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            background-color: #2a2a2a;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        .pagination a.active {
+            background-color: #3a3a3a;
+        }
+
+        .pagination a:hover {
+            background-color: #414141;
+        }
+        .footer {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            translate: -50%;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>List of <%= view === 'badservers' ? 'Bad Servers' : 'Users' %></h1>
+        </div>
+
+        <div class="search-bar">
+            <form action="/" method="get">
+                <input type="hidden" name="view" value="<%= view %>">
+                <input type="text" name="search" placeholder="Search..." value="<%= search %>">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="nav">
+            <a href="/?view=users">Users</a> |
+            <a href="/?view=badservers">Bad Servers</a>
+        </div>
+
+        <div class="content">
+            <ul>
+                <% if (view === 'badservers') { %>
+                        <li class="box">
+                            <div class="info"><strong>SERVER ID</strong></div>
+                            <div class="info"><strong>SERVER NAME</strong></div>
+                            <div class="info"><strong>BLACKLIST REASON</strong></div>
+                            <div class="info"><strong>ADDED AT DATE</strong></div>
+                        </li>
+                    <% data.forEach(server => { %>
+                        <li class="box">
+                            <div class="info"><%= server.id %></div>
+                            <div class="info"><%= server.name %></div>
+                            <div class="info"><%= server.reason %></div>
+                            <div class="info"><%= new Date(server.createdAt).toLocaleDateString() %></div>
+                        </li>
+                    <% }) %>
+                <% } else { %>
+                    <li class="box">
+                        <div class="info"><strong>USER ID</strong></div>
+                        <div class="info"><strong>USERNAME</strong></div>
+                        <div class="info"><strong>STATUS</strong></div>
+                        <div class="info"><strong>REASON</strong></div>
+                    </li>
+                    <% data.forEach(user => { %>
+                        <li class="box">
+                            <div class="info"><%= user.id %></div>
+                            <div class="info"><%= user.last_username %></div>
+                            <div class="info"><%= user.type %></div>
+                            <div class="info"><%= user.reason %></div>
+                        </li>
+                    <% }) %>
+                <% } %>
+            </ul>
+        </div>
+
+        <div class="pagination">
+            <% for(let i = 1; i <= totalPages; i++) { %>
+                <a href="/?view=<%= view %>&page=<%= i %>&search=<%= search %>" class="<%= page == i ? 'active' : '' %>"><%= i %></a>
+            <% } %>
+        </div>
+        <div class="footer">
+            Made by Snowly with ❤️ for Warden Team
+        </div>
+    </div>
+</body>
+
+</html>
