@@ -5,7 +5,7 @@ const path = require('path');
 
 const app = express();
 const prisma = new PrismaClient();
-
+let apiKeys = ["KEY_1283923JNAIDJAWDJWNDNDAW98", "KEY_1283923JNAIDJAWDJWNDNDAW92"]
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -119,9 +119,11 @@ app.get('/', async (req, res) => {
 });
 
 // this is what allows u to do url/users with body of a userid and returns data.
-app.get('/user', async (req, res) => {
-    const { user_id } = req.query;
-
+app.post('/user', async (req, res) => {
+    const { user_id, key } = req.body;
+    if(!apiKeys[key]) {
+        return res.status(400).json({ success: false, message: 'You need an API Key to use our API!' });
+    }
     if (!user_id) {
         return res.status(400).json({ success: false, message: 'Discord user ID is required' });
     }
@@ -144,9 +146,11 @@ app.get('/user', async (req, res) => {
         return res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
-app.get('/server', async (req, res) => {
-    const { server_id } = req.query;
-
+app.post('/server', async (req, res) => {
+    const { server_id, key } = req.body;
+    if(!apiKeys[key]) {
+        return res.status(400).json({ success: false, message: 'You need an API Key to use our API!' });
+    }
     if (!server_id) {
         return res.status(400).json({ success: false, message: 'Discord Server ID is required' });
     }
